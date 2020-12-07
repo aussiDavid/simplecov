@@ -1,12 +1,17 @@
 export type Coverage = {
   lines: Array<number | null>;
-  branches?: Array<number | null>;
+  branches?: {
+    [branch: string]: {
+      [then: string]: number; 
+    }
+  }
 };
 
 export type RSpecResults = {
   RSpec: {
     coverage: {
-      [key: string]: Coverage;
+      [path: string]: Coverage;
     };
+    timestamp: number;
   };
 };
