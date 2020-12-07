@@ -1,11 +1,14 @@
 import * as vscode from 'vscode';
 
-import ShowCodeCoverageCommand from './commands/show_code_coverage';
+import ShowCodeCoverageCommand from './show_code_coverage';
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('"simplecov" is active');
+  console.log('"simplecov" is active');
 
-	let disposable = vscode.commands.registerCommand('simplecov.showCodeCoverage', ShowCodeCoverageCommand);
+  const disposable = vscode.commands.registerCommand(
+    'simplecov.showCodeCoverage',
+    ShowCodeCoverageCommand
+  );
   context.subscriptions.push(disposable);
 }
 

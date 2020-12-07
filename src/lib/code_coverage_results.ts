@@ -1,11 +1,11 @@
-'use strict';
-
 import * as vscode from 'vscode';
-import fs = require('fs');
+import * as fs from 'fs';
+
+import { RSpecResults } from '../types';
 
 export const path = `${vscode.workspace.rootPath}/coverage/.resultset.json`;
 
-export function resultset(): any { 
+export function resultset(): RSpecResults {
   const rawdata = fs.readFileSync(path);
   return JSON.parse(rawdata.toString());
 }
