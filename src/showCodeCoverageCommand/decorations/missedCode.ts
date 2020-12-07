@@ -1,10 +1,10 @@
 'user strict';
 
 import { DecorationOptions, Range, TextDocument, TextEditor } from 'vscode';
-import { Coverage, RSpecResults } from '../../types';
+import { Coverage, SimplecovRSpecCoverageResults } from '../../types';
 
 const codeCoverageSets = (
-  resultset: RSpecResults,
+  resultset: SimplecovRSpecCoverageResults,
   editors: TextEditor[],
   callback: (editor: TextEditor, coverage: Coverage) => void
 ): void => {
@@ -24,7 +24,7 @@ const codeCoverageSets = (
 };
 
 export default (
-  resultset: RSpecResults,
+  resultset: SimplecovRSpecCoverageResults,
   editors: TextEditor[],
   callback: (editor: TextEditor, decorations: DecorationOptions[]) => void
 ): void => {

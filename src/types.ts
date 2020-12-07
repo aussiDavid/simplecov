@@ -7,7 +7,7 @@ export type Coverage = {
   }
 };
 
-export type RSpecResults = {
+export type SimplecovRSpecCoverageResults = {
   RSpec: {
     coverage: {
       [path: string]: Coverage;

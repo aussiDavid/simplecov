@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 
-import { RSpecResults } from '../types';
+import { SimplecovRSpecCoverageResults } from '../types';
 
 export const path = `${vscode.workspace.rootPath}/coverage/.resultset.json`;
 
-export function resultset(): RSpecResults {
+export function resultset(): SimplecovRSpecCoverageResults {
   const rawdata = fs.readFileSync(path);
   return JSON.parse(rawdata.toString());
 }
