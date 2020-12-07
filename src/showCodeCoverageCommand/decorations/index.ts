@@ -4,7 +4,7 @@ import { codeCoveredDecorationType } from '../decoration_types/codeCovered';
 import { missedCodeDecorationType } from '../decoration_types/missedCode';
 import missedCodeDecorations from './missedCode';
 import codeCoveredDecorations from './codeCovered';
-import * as resultset from '../codeCoverageResults';
+import Resultset from './codeCoverageResults';
 
 type Callback = (
   editor: vscode.TextEditor,
@@ -13,7 +13,7 @@ type Callback = (
 ) => void;
 
 export default (editors: vscode.TextEditor[], callback: Callback) => {
-  const data = resultset.resultset();
+  const resultset = Resultset();
   [
     {
       decorations: codeCoveredDecorations,
@@ -25,7 +25,7 @@ export default (editors: vscode.TextEditor[], callback: Callback) => {
     },
   ].forEach(({ decorations, decorationType }) => {
     decorations(
-      data,
+      resultset,
       editors,
       (
         editor: vscode.TextEditor,

@@ -1,5 +1,3 @@
-'user strict';
-
 import { DecorationOptions, Range, TextDocument, TextEditor } from 'vscode';
 import { Coverage, SimplecovRSpecCoverageResults } from '../../types';
 

@@ -5,25 +5,25 @@ import {
   DecorationOptions,
 } from 'vscode';
 
-import { fileNotFound, path } from './codeCoverageResults';
 import decorations from './decorations';
 
 const editors = (): TextEditor[] => window.visibleTextEditors;
 
 const performCommand = () => {
-  if (fileNotFound()) {
-    window.showErrorMessage(`${path} could not be found`);
-    return;
+  try {
+    decorations(
+      editors(),
+      (
+        editor: TextEditor,
+        decorationType: TextEditorDecorationType,
+        decorationOptions: DecorationOptions[]
+      ) => editor.setDecorations(decorationType, decorationOptions)
+    );
+  
   }
-
-  decorations(
-    editors(),
-    (
-      editor: TextEditor,
-      decorationType: TextEditorDecorationType,
-      decorationOptions: DecorationOptions[]
-    ) => editor.setDecorations(decorationType, decorationOptions)
-  );
+  catch(e) {
+    window.showErrorMessage(e.message);
+  }
 };
 
 export default performCommand;
