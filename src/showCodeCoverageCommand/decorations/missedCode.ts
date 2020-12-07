@@ -1,7 +1,7 @@
 'user strict';
 
 import { DecorationOptions, Range, TextDocument, TextEditor } from 'vscode';
-import { Coverage, RSpecResults } from '../types';
+import { Coverage, RSpecResults } from '../../types';
 
 const codeCoverageSets = (
   resultset: RSpecResults,

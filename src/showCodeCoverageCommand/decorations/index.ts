@@ -4,7 +4,7 @@ import { codeCoveredDecorationType } from '../decoration_types/codeCovered';
 import { missedCodeDecorationType } from '../decoration_types/missedCode';
 import missedCodeDecorations from './missedCode';
 import codeCoveredDecorations from './codeCovered';
-import * as resultset from '../lib/codeCoverageResults';
+import * as resultset from '../codeCoverageResults';
 
 type Callback = (
   editor: vscode.TextEditor,

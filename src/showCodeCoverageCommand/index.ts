@@ -5,7 +5,7 @@ import {
   DecorationOptions,
 } from 'vscode';
 
-import { fileNotFound, path } from './lib/codeCoverageResults';
+import { fileNotFound, path } from './codeCoverageResults';
 import decorations from './decorations';
 
 const editors = (): TextEditor[] => window.visibleTextEditors;

@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 
-import ShowCodeCoverageCommand from './showCodeCoverage';
+import ShowCodeCoverageCommand from './showCodeCoverageCommand';
 
 export function activate(context: vscode.ExtensionContext) {
   console.log('"simplecov" is active');
