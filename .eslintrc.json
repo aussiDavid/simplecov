@@ -1,7 +1,11 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
-    "extends": ["airbnb-typescript/base", "prettier", "prettier/@typescript-eslint"],
+    "extends": [
+      "airbnb-typescript/base",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ],
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module",
