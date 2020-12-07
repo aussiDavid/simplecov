@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
 
-import { codeCoveredDecorationType } from '../decoration_types/code_covered';
-import { missedCodeDecorationType } from '../decoration_types/missed_code';
-import missedCodeDecorations from './missed_code';
-import codeCoveredDecorations from './code_covered';
-import * as resultset from '../lib/code_coverage_results';
+import { codeCoveredDecorationType } from '../decoration_types/codeCovered';
+import { missedCodeDecorationType } from '../decoration_types/missedCode';
+import missedCodeDecorations from './missedCode';
+import codeCoveredDecorations from './codeCovered';
+import * as resultset from '../lib/codeCoverageResults';
 
 type Callback = (
   editor: vscode.TextEditor,
