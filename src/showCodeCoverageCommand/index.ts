@@ -1,25 +1,13 @@
-import {
-  TextEditor,
-  window,
-  TextEditorDecorationType,
-  DecorationOptions,
-} from 'vscode';
+import { window } from 'vscode';
 
-import decorations from './decorations';
-
-const editors = (): TextEditor[] => window.visibleTextEditors;
+import decorationsFor from './decorations';
 
 const performCommand = () => {
   try {
-    decorations(
-      editors(),
-      (
-        editor: TextEditor,
-        decorationType: TextEditorDecorationType,
-        decorationOptions: DecorationOptions[]
-      ) => editor.setDecorations(decorationType, decorationOptions)
-    );
-  
+    decorationsFor(window.visibleTextEditors)
+      .forEach(({ editor, decorationType, decorationOptions }) => 
+        editor.setDecorations(decorationType, decorationOptions)
+      );
   }
   catch(e) {
     window.showErrorMessage(e.message);
