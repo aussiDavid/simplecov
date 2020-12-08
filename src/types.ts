@@ -1,3 +1,5 @@
+import { TextEditor, DecorationOptions } from 'vscode'
+
 export type Coverage = {
   lines: Array<number | null>;
   branches?: {
@@ -14,4 +16,9 @@ export type SimplecovRSpecCoverageResults = {
     };
     timestamp: number;
   };
+};
+
+export type EditorDecorations = {
+  editor: TextEditor,
+  decorations: DecorationOptions[]
 };
