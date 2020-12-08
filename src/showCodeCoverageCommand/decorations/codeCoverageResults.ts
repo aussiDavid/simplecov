@@ -1,10 +1,10 @@
-import * as vscode from 'vscode';
+import { workspace } from 'vscode';
 import * as fs from 'fs';
 
 import { SimplecovRSpecCoverageResults } from '../../types';
 import FileNotFoundError from '../../errors/fileNotFoundError';
 
-export const path = `${vscode.workspace.rootPath}/coverage/.resultset.json`;
+export const path = `${workspace.rootPath}/coverage/.resultset.json`;
 
 export default (): SimplecovRSpecCoverageResults => {
   if (!fs.existsSync(path)) { 
