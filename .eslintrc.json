@@ -1,19 +1,24 @@
 {
     "root": true,
     "parser": "@typescript-eslint/parser",
+    "extends": [
+      "airbnb-typescript/base",
+      "prettier",
+      "prettier/@typescript-eslint"
+    ],
     "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module"
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/naming-convention": "warn",
-        "@typescript-eslint/semi": "warn",
-        "curly": "warn",
-        "eqeqeq": "warn",
-        "no-throw-literal": "warn",
-        "semi": "off"
+        "@typescript-eslint/no-explicit-any": "error",
+        "no-console": "off",
+        "@typescript-eslint/naming-convention": "error",
+        "eqeqeq": "error",
+        "no-throw-literal": "error"
     }
 }
