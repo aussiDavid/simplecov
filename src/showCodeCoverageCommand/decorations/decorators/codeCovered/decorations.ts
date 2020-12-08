@@ -1,8 +1,8 @@
 import { Range, TextEditor } from 'vscode';
-import { EditorDecorations, SimplecovRSpecCoverageResults } from '../../../../types';
+import { EditorDecorations, SimplecovCoverageResults } from '../../../../types';
 import codeCoverageSets from '../common';
 
-export default (resultset: SimplecovRSpecCoverageResults,
+export default (resultset: SimplecovCoverageResults,
   editors: TextEditor[]): EditorDecorations[] => codeCoverageSets(resultset, editors).map(({ editor, coverage }) => ({
     editor,
     decorations: coverage.lines

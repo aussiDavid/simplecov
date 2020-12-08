@@ -1,5 +1,5 @@
 import { TextDocument, TextEditor } from 'vscode';
-import { Coverage, SimplecovRSpecCoverageResults } from '../../../types';
+import { Coverage, SimplecovCoverageResults } from '../../../types';
 
 const fileNames = (editors: TextEditor[]) =>
   editors
@@ -7,25 +7,26 @@ const fileNames = (editors: TextEditor[]) =>
     .map((document: TextDocument) => document.fileName);
 
 const setsUsedByEditors = (
-  resultset: SimplecovRSpecCoverageResults,
+  resultset: SimplecovCoverageResults,
   editors: TextEditor[]
 ) =>
-  Object.entries(resultset.RSpec.coverage)
-    .filter(([file]) => fileNames(editors).includes(file))
-    .map(([filename, coverage]) => ({ filename, coverage }));
-  
+  Object.values(resultset)
+    .map(({ coverage }) => Object.entries(coverage))
+    .map(([[fileName, coverage]]) => ({ fileName, coverage }))
+    .filter(({fileName}) => fileNames(editors).includes(fileName))
+
 export type EditorResults = {
-  editor: TextEditor,
-  coverage: Coverage
+  editor: TextEditor;
+  coverage: Coverage;
 };
 
 export default (
-  resultset: SimplecovRSpecCoverageResults,
+  resultset: SimplecovCoverageResults,
   editors: TextEditor[]
 ): EditorResults[] =>
-  setsUsedByEditors(resultset, editors).map(({ filename, coverage }) => ({
+  setsUsedByEditors(resultset, editors).map(({ fileName, coverage }) => ({
     editor: editors.find(
-      (editor) => editor.document.fileName === filename
+      (editor) => editor.document.fileName === fileName
     ) as TextEditor,
     coverage,
   }));
