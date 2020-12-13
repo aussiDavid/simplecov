@@ -1,13 +1,12 @@
 import {
   DecorationOptions,
-  TextDocument,
+  Range,
   TextEditor,
   TextEditorDecorationType,
 } from 'vscode';
 
-import Resultset from './codeCoverageResults';
 import Decorators from './decorators';
-import { EditorResults } from '../../types';
+import CodeCoverageResultsWithEditor from './CodeCoverageResultsWithEditor';
 
 type Decoration = {
   editor: TextEditor;
@@ -15,33 +14,24 @@ type Decoration = {
   decorationOptions: DecorationOptions[];
 };
 
-const resultset = Resultset();
-
-const fileNames = (editors: TextEditor[]) =>
-  editors
-    .map((textEditor: TextEditor) => textEditor.document)
-    .map((document: TextDocument) => document.fileName);
-
-const resultsSetsForEditors = (editors: TextEditor[]) =>
-  Object.values(resultset)
-    .map(({ coverage }) => Object.entries(coverage))
-    .map(([[fileName, coverage]]) => ({ fileName, coverage }))
-    .filter(({ fileName }) => fileNames(editors).includes(fileName));
-
-const codeCoverageSets = (editors: TextEditor[]): EditorResults[] =>
-  resultsSetsForEditors(editors).map(({ fileName, coverage }) => ({
-    editor: editors.find(
-      (editor) => editor.document.fileName === fileName
-    ) as TextEditor,
-    coverage,
-  }));
+const decorators = (editors: TextEditor[]) =>
+  Decorators.flatMap((decorator) =>
+    new CodeCoverageResultsWithEditor(editors).process().map((codeCoverageSet) => ({
+      ...decorator,
+      ...codeCoverageSet,
+    }))
+  );
 
 export default (editors: TextEditor[]): Decoration[] =>
-  Decorators.flatMap(({ decorationType, decorations: decorationsFor }) =>
-    codeCoverageSets(editors)
-      .map(({ editor, coverage }) => ({
-        editor,
-        decorationType,
-        decorationOptions: decorationsFor(coverage),
-      }))
+  decorators(editors).map(
+    ({ editor, decorationType, decorations, coverage }) => ({
+      editor,
+      decorationType,
+      decorationOptions: decorations(coverage).map(
+        ({ lineNumber, onHoverMessage }) => ({
+          range: new Range(lineNumber, 0, lineNumber, 1),
+          hoverMessage: onHoverMessage,
+        })
+      ),
+    })
   );
