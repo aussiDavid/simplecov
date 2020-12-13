@@ -22,3 +22,8 @@ export type EditorDecorations = {
   editor: TextEditor,
   decorations: DecorationOptions[]
 };
+
+export type EditorResults = {
+  editor: TextEditor;
+  coverage: Coverage;
+};
