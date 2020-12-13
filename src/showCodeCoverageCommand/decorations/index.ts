@@ -6,7 +6,7 @@ import {
 } from 'vscode';
 
 import Decorators from './decorators';
-import CodeCoverageResultsWithEditor from './CodeCoverageResultsWithEditor';
+import CodeCoverageResultsWithEditor from './codeCoverageResultsWithEditor';
 
 type Decoration = {
   editor: TextEditor;
