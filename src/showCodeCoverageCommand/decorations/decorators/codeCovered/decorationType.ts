@@ -1,10 +1,6 @@
-import * as vscode from 'vscode';
+import { window } from 'vscode';
 
-export const codeCoveredDecorationType = vscode.window.createTextEditorDecorationType(
-  {
-    backgroundColor: '#0F01',
-    isWholeLine: true,
-  }
-);
-
-export default codeCoveredDecorationType;
+export default window.createTextEditorDecorationType({
+  backgroundColor: '#0F01',
+  isWholeLine: true,
+});

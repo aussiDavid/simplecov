@@ -37,12 +37,11 @@ const codeCoverageSets = (editors: TextEditor[]): EditorResults[] =>
   }));
 
 export default (editors: TextEditor[]): Decoration[] =>
-  Decorators.flatMap(({ decorations, decorationType }) =>
-    decorations(codeCoverageSets(editors)).map(
-      ({ editor, decorations: decorationOptions }) => ({
+  Decorators.flatMap(({ decorationType, decorations: decorationsFor }) =>
+    codeCoverageSets(editors)
+      .map(({ editor, coverage }) => ({
         editor,
         decorationType,
-        decorationOptions,
-      })
-    )
+        decorationOptions: decorationsFor(coverage),
+      }))
   );
