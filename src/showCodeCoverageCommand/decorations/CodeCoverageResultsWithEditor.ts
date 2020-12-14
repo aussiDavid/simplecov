@@ -21,6 +21,13 @@ export default class CodeCoverageResultsWithEditor {
     }));
   }
 
+  private codeCoverageSetsForEditors() {
+    return Object.values(codeCoverageResults())
+      .map(({ coverage }) => Object.entries(coverage))
+      .map(([[fileName, coverage]]) => ({ fileName, coverage }))
+      .filter(({ fileName }) => this.fileNames().includes(fileName));
+  }
+
   private editorFor(fileName: string) {
     return this.editors.find(
       (editor) => editor.document.fileName === fileName
@@ -31,12 +38,5 @@ export default class CodeCoverageResultsWithEditor {
     return this.editors
       .map((textEditor: TextEditor) => textEditor.document)
       .map((document: TextDocument) => document.fileName);
-  }
-
-  private codeCoverageSetsForEditors() {
-    return Object.values(codeCoverageResults())
-      .map(({ coverage }) => Object.entries(coverage))
-      .map(([[fileName, coverage]]) => ({ fileName, coverage }))
-      .filter(({ fileName }) => this.fileNames().includes(fileName));
   }
 }
