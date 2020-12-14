@@ -1,6 +1,11 @@
 import { TextDocument, TextEditor } from 'vscode';
-import { EditorResults } from '../../types';
+import { Coverage } from '../../types';
 import codeCoverageResults from './codeCoverageResults';
+
+type EditorResults = {
+  editor: TextEditor;
+  coverage: Coverage;
+};
 
 export default class CodeCoverageResultsWithEditor {
   private editors: TextEditor[];

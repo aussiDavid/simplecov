@@ -1,4 +1,10 @@
-import { TextEditor, DecorationOptions } from 'vscode'
+export type SimplecovCoverageResults = {
+  [provider: string]: {
+    coverage: {
+      [path: string]: Coverage;
+    };
+  };
+};
 
 export type Coverage = {
   lines: Array<number | null>;
@@ -7,23 +13,4 @@ export type Coverage = {
       [then: string]: number; 
     }
   }
-};
-
-export type SimplecovCoverageResults = {
-  [provider: string]: {
-    coverage: {
-      [path: string]: Coverage;
-    };
-    timestamp: number;
-  };
-};
-
-export type EditorDecorations = {
-  editor: TextEditor,
-  decorations: DecorationOptions[]
-};
-
-export type EditorResults = {
-  editor: TextEditor;
-  coverage: Coverage;
 };
