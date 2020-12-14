@@ -1,6 +1,6 @@
 export default class CodeCoverageFileNotFoundError extends Error {
-  constructor(filePath: string) {
-      super(`${filePath} could not be found`);
+  constructor(filePaths: string[]) {
+      super(`Code coverage file could not be found. The following locations where checked: ${filePaths.join(', ')} `);
       Object.setPrototypeOf(this, new.target.prototype);
       this.name = CodeCoverageFileNotFoundError.name;
   }

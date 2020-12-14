@@ -1,17 +1,26 @@
 import { workspace } from 'vscode';
 import * as fs from 'fs';
+import { merge } from 'lodash';
 
 import { SimplecovCoverageResults } from '../../types';
 import CodeCoverageFileNotFoundError from './codeCoverageFileNotFoundError';
 
-export const path = `${workspace.rootPath}/coverage/.resultset.json`;
+const filePath = `coverage/.resultset.json`;
+
+const paths = () =>
+  (workspace.workspaceFolders || []).map(
+    (folder) => `${folder.uri.path}/${filePath}`
+  );
+
+const availableFiles = () => paths().filter((path) => fs.existsSync(path));
 
 export default (): SimplecovCoverageResults => {
-  if (!fs.existsSync(path)) { 
-    throw new CodeCoverageFileNotFoundError(path);
+  if (!availableFiles().length) {
+    throw new CodeCoverageFileNotFoundError(paths());
   }
 
-  return JSON.parse(
-    fs.readFileSync(path).toString()
-  );
-}
+  return availableFiles()
+    .map(path => fs.readFileSync(path).toString())
+    .map(fileContents => JSON.parse(fileContents))
+    .reduce(merge);
+};
