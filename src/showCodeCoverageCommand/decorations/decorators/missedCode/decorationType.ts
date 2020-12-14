@@ -1,10 +1,8 @@
-import * as vscode from 'vscode';
+import { window } from 'vscode';
 
-export const missedCodeDecorationType = vscode.window.createTextEditorDecorationType(
+export default window.createTextEditorDecorationType(
   {
     backgroundColor: '#F001',
     isWholeLine: true,
   }
 );
-
-export default missedCodeDecorationType;

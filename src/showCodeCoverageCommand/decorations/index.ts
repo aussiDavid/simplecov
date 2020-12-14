@@ -1,11 +1,12 @@
 import {
   DecorationOptions,
+  Range,
   TextEditor,
   TextEditorDecorationType,
 } from 'vscode';
 
-import Resultset from './codeCoverageResults';
-import Decorators from './decorators'
+import Decorators from './decorators';
+import CodeCoverageResultsWithEditor from './codeCoverageResultsWithEditor';
 
 type Decoration = {
   editor: TextEditor;
@@ -13,15 +14,24 @@ type Decoration = {
   decorationOptions: DecorationOptions[];
 };
 
-const resultset = Resultset();
+const decorators = (editors: TextEditor[]) =>
+  Decorators.flatMap((decorator) =>
+    new CodeCoverageResultsWithEditor(editors).process().map((codeCoverageSet) => ({
+      ...decorator,
+      ...codeCoverageSet,
+    }))
+  );
 
 export default (editors: TextEditor[]): Decoration[] =>
-  Decorators.flatMap(({ decorations, decorationType }) =>
-    decorations(resultset, editors).map(
-      ({ editor, decorations: decorationOptions }) => ({
-        editor,
-        decorationType,
-        decorationOptions,
-      })
-    )
+  decorators(editors).map(
+    ({ editor, decorationType, decorations, coverage }) => ({
+      editor,
+      decorationType,
+      decorationOptions: decorations(coverage).map(
+        ({ lineNumber, onHoverMessage }) => ({
+          range: new Range(lineNumber, 0, lineNumber, 1),
+          hoverMessage: onHoverMessage,
+        })
+      ),
+    })
   );
