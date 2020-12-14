@@ -17,7 +17,7 @@
     "commands": [
       {
         "command": "simplecov.showCodeCoverage",
-        "title": "Show Simplecov Code Coverage"
+        "title": "Simplecov: Show Code Coverage"
       }
     ]
   },
